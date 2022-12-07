@@ -1,6 +1,6 @@
-const urlParams = new URLSearchParams(window.location.search)
-const nameParam = urlParams.get("name")
-const url = `https://pokeapi.co/api/v2/pokemon/${nameParam}`
+const urlOrients = new URLSearchParams(window.location.search)
+const nameOrient = urlOrients.get("name")
+const url = `https://pokeapi.co/api/v2/pokemon/${nameOrient}`
 
 function convertPokemonToHtml(pokemon) {
     const pokemonDesc = document.getElementById(`pokemonDesc`)
