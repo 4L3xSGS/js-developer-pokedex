@@ -1,47 +1,26 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokédex_Lex</title>
-
-    <!-- Normalize CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-        integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!-- Fonte Roboto -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;700&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="/assets/css/global.css">
-    <link rel="stylesheet" href="/assets/css/pokedex.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Explore o universo Pokémon com filtros, favoritos e comparação de atributos. Um projeto de Alexander Souto.">
+<meta name="theme-color" content="#101511"><title>Pokédex Lex — Explore. Descubra. Compare.</title>
+<link rel="icon" href="./assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="./assets/css/app.css">
+<script type="module" src="./assets/js/main.js"></script>
 </head>
-
 <body>
-    <section class="content">
-        <h1>Pokedex</h1>
-
-        <ol id="pokemonList" class="pokemons">
-            <!-- Pokemons -->
-        </ol>
-
-        <div class="pagination">
-            <button id="loadMoreButton" type="button">
-                Load More
-            </button>
-        </div>
-    </section>
-
-    <!--JavaScript -->
-    <script src="/assets/js/pokemon-model.js"></script>
-    <script src="/assets/js/poke-api.js"></script>
-    <script src="/assets/js/main.js"></script>
-
-</body>
-
-</html>
+<a class="skip" href="#explorar">Pular para a coleção</a>
+<header class="top"><a class="brand" href="./index.html"><span class="ball" aria-hidden="true"></span>POKÉDEX <b>LEX</b></a><nav aria-label="Principal"><a href="#explorar">Explorar</a><a href="https://github.com/4L3xSGS/js-developer-pokedex">Código ↗</a><button id="theme" aria-label="Alternar tema">◐</button></nav></header>
+<main>
+<section class="hero"><div><p class="eyebrow"><span></span> SEU GUIA DE CAMPO DIGITAL</p><h1>Um universo.<br>Infinitas <em>descobertas.</em></h1><p class="intro">Encontre seu próximo favorito. Explore gerações, descubra habilidades e compare o potencial de cada Pokémon.</p><a class="primary" href="#explorar">Explorar coleção <span>↗</span></a><div class="hero-meta"><span>09 <small>GERAÇÕES</small></span><span>18 <small>TIPOS</small></span><span>∞ <small>POSSIBILIDADES</small></span></div></div><div class="hero-art"><span class="orbit"></span><span class="art-label">DESTAQUE DA COLEÇÃO / #006</span><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" alt="Charizard" width="400" height="400" fetchpriority="high"><div class="art-caption"><b>Charizard</b><span>FOGO · VOADOR</span></div></div></section>
+<section id="explorar" class="collection" aria-labelledby="collection-title"><div class="section-title"><div><p class="eyebrow">O MUNDO POKÉMON, ORGANIZADO.</p><h2 id="collection-title">Sua próxima descoberta</h2></div><span class="edition">FIELD GUIDE / VOL. 02</span></div>
+<form id="filters" class="filters" role="search"><label class="search">Buscar Pokémon<input id="search" type="search" placeholder="Nome ou número, ex.: pikachu" autocomplete="off"></label><label>Tipo<select id="type"><option value="">Todos os tipos</option></select></label><label>Geração<select id="generation"><option value="">Todas as gerações</option></select></label><label>Ordenar<select id="sort"><option value="id">Número crescente</option><option value="name">Nome A–Z</option><option value="desc">Número decrescente</option></select></label></form>
+<div class="collection-bar"><p id="status" role="status" aria-live="polite">Conectando à PokéAPI…</p><button id="favorites" aria-pressed="false">♡ Meus favoritos <span id="favorite-count">0</span></button></div>
+<div id="error" class="empty" hidden><p>Não foi possível carregar a coleção. Verifique sua conexão.</p><button id="retry">Tentar novamente</button></div>
+<ul id="grid" class="grid" aria-label="Pokémon"></ul><div id="empty" class="empty" hidden>Nenhum Pokémon encontrado. Experimente outros filtros.</div><button id="more" class="more" hidden>Carregar mais Pokémon ↓</button>
+</section>
+</main>
+<aside id="compare-bar" class="compare-bar" aria-label="Comparação" hidden><span id="compare-count"></span><button id="compare-open">Comparar atributos ↗</button><button id="compare-clear">Limpar</button></aside>
+<dialog id="detail" aria-labelledby="detail-title"><button class="close" aria-label="Fechar detalhes">×</button><div id="detail-content"></div></dialog>
+<dialog id="comparison" aria-labelledby="comparison-title"><button class="close" aria-label="Fechar comparação">×</button><h2 id="comparison-title">Lado a lado.</h2><div id="comparison-content"></div></dialog>
+<footer><a class="brand" href="#">POKÉDEX <b>LEX</b></a><p>Design e desenvolvimento por <a href="https://github.com/4L3xSGS">Alexander Souto ↗</a></p><small>Projeto de portfólio sem fins comerciais. Pokémon pertence à Nintendo / Creatures / GAME FREAK. Dados: PokéAPI.</small></footer>
+</body></html>
