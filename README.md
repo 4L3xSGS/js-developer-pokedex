@@ -55,16 +55,16 @@ Não é necessário instalar dependências para executar a aplicação ou os tes
 
 ## Decisões de engenharia
 
-| Decisão | Motivo |
-| --- | --- |
-| HTML semântico, CSS e módulos JavaScript nativos | Aplicação estática leve, sem etapa obrigatória de build e sem dependências de produção. |
-| Um índice para busca local | Busca e ordenação não exigem uma requisição por tecla. A listagem não faz 24 chamadas adicionais para desenhar 24 cartões. |
-| Filtros por tipo sob demanda | Informações detalhadas são buscadas apenas quando necessárias. Os cartões exibem nome e número; tipos aparecem nas fichas e na comparação. |
-| Cache em memória e deduplicação de promises | Reutiliza respostas e requisições simultâneas. Erros são removidos do cache para permitir nova tentativa. |
-| Timeout e controle de respostas fora de ordem | Evita espera indefinida e impede que uma resposta antiga substitua filtros mais recentes. |
-| Paginação em lotes de 24 e imagens lazy | Reduz o DOM e o carregamento inicial de imagens da coleção. |
-| `dialog` nativo | Foco modal e fechamento por Escape fornecidos pelo navegador. |
-| Persistência local com fallback | Falhas ou bloqueio de armazenamento não impedem a exploração. |
+| Decisão                                          | Motivo                                                                                                                                     |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| HTML semântico, CSS e módulos JavaScript nativos | Aplicação estática leve, sem etapa obrigatória de build e sem dependências de produção.                                                    |
+| Um índice para busca local                       | Busca e ordenação não exigem uma requisição por tecla. A listagem não faz 24 chamadas adicionais para desenhar 24 cartões.                 |
+| Filtros por tipo sob demanda                     | Informações detalhadas são buscadas apenas quando necessárias. Os cartões exibem nome e número; tipos aparecem nas fichas e na comparação. |
+| Cache em memória e deduplicação de promises      | Reutiliza respostas e requisições simultâneas. Erros são removidos do cache para permitir nova tentativa.                                  |
+| Timeout e controle de respostas fora de ordem    | Evita espera indefinida e impede que uma resposta antiga substitua filtros mais recentes.                                                  |
+| Paginação em lotes de 24 e imagens lazy          | Reduz o DOM e o carregamento inicial de imagens da coleção.                                                                                |
+| `dialog` nativo                                  | Foco modal e fechamento por Escape fornecidos pelo navegador.                                                                              |
+| Persistência local com fallback                  | Falhas ou bloqueio de armazenamento não impedem a exploração.                                                                              |
 
 ```text
 index.html                 Interface e pontos de entrada

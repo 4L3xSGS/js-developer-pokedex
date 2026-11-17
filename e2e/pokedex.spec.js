@@ -1,11 +1,81 @@
-import {test} from '@playwright/test';
-import assert from 'node:assert/strict';
-test('explore, persist favorites, compare and view details on mobile',async({page})=>{
-const errors=[];page.on('pageerror',e=>errors.push(e.message));
-await page.route('https://pokeapi.co/api/v2/**',async route=>{const url=route.request().url();let data;if(url.includes('pokemon?'))data={results:Array.from({length:50},(_,i)=>({name:['bulbasaur','ivysaur','venusaur','charmander','charmeleon','charizard'][i]||`pokemon-${i+1}`,url:`https://pokeapi.co/api/v2/pokemon/${i+1}/`}))};else if(url.includes('/type/'))data={pokemon:[{pokemon:{url:'https://pokeapi.co/api/v2/pokemon/6/'}}]};else{const id=Number(url.split('/').pop())||6;data={id,name:id===6?'charizard':'bulbasaur',height:17,weight:905,types:[{type:{name:'fire'}}],stats:Array.from({length:6},(_,i)=>({base_stat:60+i})),abilities:[{ability:{name:'blaze'}}]};}await route.fulfill({json:data});});
-await page.goto('http://localhost:4173');await page.locator('.card').first().waitFor();assert.equal(await page.locator('.card').count(),24);await page.locator('#more').click();assert.equal(await page.locator('.card').count(),48);await page.locator('[data-favorite="1"]').click();await page.locator('#favorites').click();assert.equal(await page.locator('.card').count(),1);await page.reload();await page.locator('.card').first().waitFor();assert.equal(await page.locator('#favorite-count').textContent(),'1');
-await page.locator('[data-compare="1"]').check();await page.locator('[data-compare="2"]').check();await page.locator('#compare-open').click();await page.locator('.comparison-grid').waitFor();assert.equal(await page.locator('.comparison-grid section').count(),2);await page.keyboard.press('Escape');await page.locator('[data-detail="1"]').click();await page.locator('#detail-title').waitFor();assert.match(await page.locator('#detail-content').textContent(),/1,7 m/);await page.keyboard.press('Escape');
-await page.selectOption('#type','fire');await page.waitForFunction(()=>document.querySelectorAll('.card').length===1);await page.selectOption('#type','');await page.waitForFunction(()=>document.querySelectorAll('.card').length===24);
-await page.setViewportSize({width:390,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.deepEqual(errors,[]);
-
+import { test } from "@playwright/test";
+import assert from "node:assert/strict";
+test("explore, persist favorites, compare and view details on mobile", async ({
+  page,
+}) => {
+  const errors = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await page.route("https://pokeapi.co/api/v2/**", async (route) => {
+    const url = route.request().url();
+    let data;
+    if (url.includes("pokemon?"))
+      data = {
+        results: Array.from({ length: 50 }, (_, i) => ({
+          name:
+            [
+              "bulbasaur",
+              "ivysaur",
+              "venusaur",
+              "charmander",
+              "charmeleon",
+              "charizard",
+            ][i] || `pokemon-${i + 1}`,
+          url: `https://pokeapi.co/api/v2/pokemon/${i + 1}/`,
+        })),
+      };
+    else if (url.includes("/type/"))
+      data = {
+        pokemon: [{ pokemon: { url: "https://pokeapi.co/api/v2/pokemon/6/" } }],
+      };
+    else {
+      const id = Number(url.split("/").pop()) || 6;
+      data = {
+        id,
+        name: id === 6 ? "charizard" : "bulbasaur",
+        height: 17,
+        weight: 905,
+        types: [{ type: { name: "fire" } }],
+        stats: Array.from({ length: 6 }, (_, i) => ({ base_stat: 60 + i })),
+        abilities: [{ ability: { name: "blaze" } }],
+      };
+    }
+    await route.fulfill({ json: data });
+  });
+  await page.goto("http://localhost:4173");
+  await page.locator(".card").first().waitFor();
+  assert.equal(await page.locator(".card").count(), 24);
+  await page.locator("#more").click();
+  assert.equal(await page.locator(".card").count(), 48);
+  await page.locator('[data-favorite="1"]').click();
+  await page.locator("#favorites").click();
+  assert.equal(await page.locator(".card").count(), 1);
+  await page.reload();
+  await page.locator(".card").first().waitFor();
+  assert.equal(await page.locator("#favorite-count").textContent(), "1");
+  await page.locator('[data-compare="1"]').check();
+  await page.locator('[data-compare="2"]').check();
+  await page.locator("#compare-open").click();
+  await page.locator(".comparison-grid").waitFor();
+  assert.equal(await page.locator(".comparison-grid section").count(), 2);
+  await page.keyboard.press("Escape");
+  await page.locator('[data-detail="1"]').click();
+  await page.locator("#detail-title").waitFor();
+  assert.match(await page.locator("#detail-content").textContent(), /1,7 m/);
+  await page.keyboard.press("Escape");
+  await page.selectOption("#type", "fire");
+  await page.waitForFunction(
+    () => document.querySelectorAll(".card").length === 1,
+  );
+  await page.selectOption("#type", "");
+  await page.waitForFunction(
+    () => document.querySelectorAll(".card").length === 24,
+  );
+  await page.setViewportSize({ width: 390, height: 844 });
+  assert.equal(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+    true,
+  );
+  assert.deepEqual(errors, []);
 });
